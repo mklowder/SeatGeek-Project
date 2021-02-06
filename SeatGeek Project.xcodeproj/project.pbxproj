@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0714964925CE5EE500BFD81C /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714964825CE5EE500BFD81C /* EventDetailView.swift */; };
 		07F170FC25CDFC50001C39C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FB25CDFC50001C39C6 /* AppDelegate.swift */; };
 		07F170FE25CDFC50001C39C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FD25CDFC50001C39C6 /* SceneDelegate.swift */; };
 		07F1710025CDFC50001C39C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FF25CDFC50001C39C6 /* ViewController.swift */; };
@@ -15,6 +16,8 @@
 		07F1710825CDFC55001C39C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07F1710625CDFC55001C39C6 /* LaunchScreen.storyboard */; };
 		07F1711325CDFC55001C39C6 /* SeatGeek_ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1711225CDFC55001C39C6 /* SeatGeek_ProjectTests.swift */; };
 		07F1711E25CDFC55001C39C6 /* SeatGeek_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1711D25CDFC55001C39C6 /* SeatGeek_ProjectUITests.swift */; };
+		07F1715125CE0313001C39C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1715025CE0313001C39C6 /* Event.swift */; };
+		07F1715925CE071D001C39C6 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1715825CE071D001C39C6 /* EventTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0714964825CE5EE500BFD81C /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		07F170F825CDFC50001C39C6 /* SeatGeek Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeatGeek Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F170FB25CDFC50001C39C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07F170FD25CDFC50001C39C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,8 @@
 		07F1711925CDFC55001C39C6 /* SeatGeek ProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SeatGeek ProjectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F1711D25CDFC55001C39C6 /* SeatGeek_ProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatGeek_ProjectUITests.swift; sourceTree = "<group>"; };
 		07F1711F25CDFC55001C39C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07F1715025CE0313001C39C6 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		07F1715825CE071D001C39C6 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +105,11 @@
 		07F170FA25CDFC50001C39C6 /* SeatGeek Project */ = {
 			isa = PBXGroup;
 			children = (
+				07F1713225CDFCC1001C39C6 /* Models */,
+				07F1713325CDFCC6001C39C6 /* Views */,
+				07F1713425CDFCCC001C39C6 /* Controllers */,
 				07F170FB25CDFC50001C39C6 /* AppDelegate.swift */,
 				07F170FD25CDFC50001C39C6 /* SceneDelegate.swift */,
-				07F170FF25CDFC50001C39C6 /* ViewController.swift */,
-				07F1710125CDFC50001C39C6 /* Main.storyboard */,
 				07F1710425CDFC55001C39C6 /* Assets.xcassets */,
 				07F1710625CDFC55001C39C6 /* LaunchScreen.storyboard */,
 				07F1710925CDFC55001C39C6 /* Info.plist */,
@@ -126,6 +133,32 @@
 				07F1711F25CDFC55001C39C6 /* Info.plist */,
 			);
 			path = "SeatGeek ProjectUITests";
+			sourceTree = "<group>";
+		};
+		07F1713225CDFCC1001C39C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				07F1715025CE0313001C39C6 /* Event.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		07F1713325CDFCC6001C39C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07F1710125CDFC50001C39C6 /* Main.storyboard */,
+				07F1715825CE071D001C39C6 /* EventTableViewCell.swift */,
+				0714964825CE5EE500BFD81C /* EventDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07F1713425CDFCCC001C39C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				07F170FF25CDFC50001C39C6 /* ViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +293,10 @@
 			files = (
 				07F1710025CDFC50001C39C6 /* ViewController.swift in Sources */,
 				07F170FC25CDFC50001C39C6 /* AppDelegate.swift in Sources */,
+				0714964925CE5EE500BFD81C /* EventDetailView.swift in Sources */,
 				07F170FE25CDFC50001C39C6 /* SceneDelegate.swift in Sources */,
+				07F1715925CE071D001C39C6 /* EventTableViewCell.swift in Sources */,
+				07F1715125CE0313001C39C6 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

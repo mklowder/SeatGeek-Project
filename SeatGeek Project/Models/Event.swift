@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 struct Event {
-    let image: UIImage
-    let eventTitle: String
-    let location: String
-    let date: String
-    let time: String
-    let isFavorited: Bool
+    var image: UIImage
+    var eventTitle: String
+    var location: String
+    var date: String
+    var time: String
+    var isFavorited: Bool
 }

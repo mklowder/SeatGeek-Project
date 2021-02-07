@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    var selectedEvent = Event(image: UIImage(named: "testImage")!, eventTitle: "", location: "", date: "", time: "", isFavorited: false)
     
     var events: [Event] = [
         Event(image: UIImage(named: "testImage")!, eventTitle: "Los Angeles Rams at Tampa Bay Buccaneers", location: "Tampa, FL", date: "Tuesday, 24 Nov 2020", time: "01:15 AM", isFavorited: false),
@@ -25,6 +26,28 @@ class ViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 600
    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: index, animated: true)
+        }
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if
+            let senderCell = sender as? EventTableViewCell,
+            let newController = segue.destination as? DetailViewController {
+                newController.eventTitle = senderCell.eventTitle.text ?? ""
+            newController.eventImage = senderCell.eventImage.image ?? UIImage(systemName: "camera")!
+                newController.eventDate = senderCell.eventDate.text ?? ""
+                newController.eventTime = senderCell.eventTime.text ?? ""
+                newController.eventLocation = senderCell.eventLocation.text ?? ""
+                newController.isFavorited = true
+            print("\(newController.eventLocation)")
+            }
+        
+    }
 
     
 }
@@ -58,7 +81,8 @@ extension ViewController: UITableViewDataSource {
     }
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        var selectedEvent = events[indexPath.row]
+//
+//
 //    }
    
 }

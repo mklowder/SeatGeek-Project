@@ -44,11 +44,10 @@ class ViewController: UIViewController {
                 newController.eventTime = senderCell.eventTime.text ?? ""
                 newController.eventLocation = senderCell.eventLocation.text ?? ""
                 newController.isFavorited = true
-            print("\(newController.eventLocation)")
             }
         
     }
-
+    
     
 }
 

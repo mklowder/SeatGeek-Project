@@ -87,6 +87,7 @@
 		07F170EF25CDFC4F001C39C6 = {
 			isa = PBXGroup;
 			children = (
+				07930BE825D190F000EA1FF3 /* README.md */,
 				07F170FA25CDFC50001C39C6 /* SeatGeek Project */,
 				07F1711125CDFC55001C39C6 /* SeatGeek ProjectTests */,
 				07F1711C25CDFC55001C39C6 /* SeatGeek ProjectUITests */,
@@ -123,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				07F1711225CDFC55001C39C6 /* SeatGeek_ProjectTests.swift */,
-				07930BE825D190F000EA1FF3 /* README.md */,
 				07F1711425CDFC55001C39C6 /* Info.plist */,
 			);
 			path = "SeatGeek ProjectTests";

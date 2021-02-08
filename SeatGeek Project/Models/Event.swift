@@ -13,7 +13,7 @@ struct Event: Codable {
     let title: String
     let performers: [Performers]
     let datetime_local:  String
-    let datetime_tbd: Bool
+    let time_tbd: Bool
     let venue: Venue
     let id: Int
     var isFavorited: Bool? = false

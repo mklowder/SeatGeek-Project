@@ -20,14 +20,4 @@ class EventTableViewCell: UITableViewCell {
     var eventID: String = ""
     var isFavorited: Bool = false
     
-    override func prepareForReuse() {
-        
-        let isEventFavorited = UserDefaults.standard.bool(forKey: "\(eventID)")
-        
-        if isEventFavorited == true {
-            favoriteIcon.image = UIImage(named: "smallFavorite")
-        } else {
-            favoriteIcon.isHidden = true
-        }
-    }
 }

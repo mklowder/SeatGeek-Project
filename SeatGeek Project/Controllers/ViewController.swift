@@ -126,27 +126,29 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! EventTableViewCell
         
         let isEventFavorited = UserDefaults.standard.bool(forKey: "\(events[indexPath.row].makeIDString(id: events[indexPath.row].id))")
-        print("isEventFavorited = \(isEventFavorited) for [\(indexPath.row)]")
         events[indexPath.row].isFavorited = isEventFavorited
+        
+        cell.favoriteIcon.image = UIImage(named: "smallFavorite")
         
         cell.eventTitle.text = events[indexPath.row].title
         cell.eventImage.image = events[indexPath.row].getImage(from: events[indexPath.row].performers[0].image)
         cell.eventLocation.text = events[indexPath.row].venue.display_location
         cell.eventDate.text = events[indexPath.row].getDate(datetime_local: events[indexPath.row].datetime_local)
-        cell.eventTime.text = events[indexPath.row].getTime(datetime_local: events[indexPath.row].datetime_local)
+        if events[indexPath.row].time_tbd == true {
+            cell.eventTime.text = "TBD"
+        } else {
+            cell.eventTime.text = events[indexPath.row].getTime(datetime_local: events[indexPath.row].datetime_local)
+        }
         if isEventFavorited == false {
             cell.favoriteIcon.isHidden = true
             cell.isFavorited = false
-            events[indexPath.row].isFavorited = false
         } else {
-            cell.favoriteIcon.image = UIImage(named: "smallFavorite")
             cell.isFavorited = true
-            events[indexPath.row].isFavorited = true
+            cell.favoriteIcon.isHidden = false
         }
         cell.eventID = events[indexPath.row].makeIDString(id: events[indexPath.row].id)
 
         cell.eventImage.layer.cornerRadius = cell.eventImage.frame.size.height / 5
-        
         
         return cell
     }

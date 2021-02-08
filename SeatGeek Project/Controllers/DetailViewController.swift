@@ -15,12 +15,15 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var eventTimeLabel: UILabel!
     @IBOutlet weak var eventLocationLabel: UILabel!
+    @IBOutlet weak var eventFavoriteIcon: UIButton!
     var eventTitle: String = ""
     var eventImage: UIImage = UIImage(named: "testImage")!
     var eventDate: String = ""
     var eventTime: String = ""
     var eventLocation: String = ""
-    var isFavorited = false
+    var isFavorited: Bool = false
+    var id: String = ""
+    let defaults = UserDefaults.standard
 
     @IBAction func isFavorited(_ sender: UIButton) {
         
@@ -28,10 +31,13 @@ class DetailViewController: UIViewController {
         
         if isFavorited == true {
             sender.setImage(UIImage(named: "smallFavorite"), for: .normal)
-            
+            defaults.set(true, forKey: "\(id)")
         } else {
             sender.setImage(UIImage(named: "smallNotFavorite"), for: .normal)
+            defaults.set(false, forKey: "\(id)")
         }
+        
+        
     }
 
     @IBAction func backButton(_ sender: UIButton) {
@@ -47,6 +53,12 @@ class DetailViewController: UIViewController {
         eventDateLabel?.text = eventDate
         eventTimeLabel?.text = eventTime
         eventLocationLabel?.text = eventLocation
+        if isFavorited == true {
+            eventFavoriteIcon?.setImage(UIImage(named: "smallFavorite"), for: .normal)
+        } else {
+            eventFavoriteIcon?.setImage(UIImage(named: "smallNotFavorite"), for: .normal)
+        }
+        
     }
     
 }

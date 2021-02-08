@@ -11,9 +11,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-
-
-    
     var events = [Event]()
 
     override func viewDidLoad() {
@@ -25,6 +22,7 @@ class ViewController: UIViewController {
         tableView.estimatedRowHeight = 600
         
         fetchAllEvents()
+        tableView.reloadData()
     }
     
     
@@ -44,7 +42,12 @@ class ViewController: UIViewController {
                 newController.eventDate = senderCell.eventDate.text ?? ""
                 newController.eventTime = senderCell.eventTime.text ?? ""
                 newController.eventLocation = senderCell.eventLocation.text ?? ""
-                newController.isFavorited = true
+                if senderCell.favoriteIcon.isHidden == true {
+                    newController.isFavorited = false
+                } else {
+                    newController.isFavorited = true
+                }
+                newController.id = senderCell.eventID
             }
         
     }
@@ -86,7 +89,6 @@ class ViewController: UIViewController {
         
         if let decodedData = try? decoder.decode(Events.self, from: json) {
             events = decodedData.events
-            print(events)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -113,21 +115,25 @@ extension ViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! EventTableViewCell
         
+        let isEventFavorited = UserDefaults.standard.bool(forKey: "\(events[indexPath.row].makeIDString(id: events[indexPath.row].id))")
+        events[indexPath.row].isFavorited = isEventFavorited
+        
         cell.eventTitle.text = events[indexPath.row].title
         cell.eventImage.image = events[indexPath.row].getImage(from: events[indexPath.row].performers[0].image)
         cell.eventLocation.text = events[indexPath.row].venue.display_location
-        cell.eventDate.text = events[indexPath.row].datetime_local
-       // cell.eventTime.text = events[indexPath.row].time
-        
+        cell.eventDate.text = events[indexPath.row].getDate(datetime_local: events[indexPath.row].datetime_local)
+        cell.eventTime.text = events[indexPath.row].getTime(datetime_local: events[indexPath.row].datetime_local)
+        if events[indexPath.row].isFavorited == false {
+            cell.favoriteIcon.isHidden = true
+        } else {
+            cell.favoriteIcon.image = UIImage(named: "smallFavorite")
+        }
+        cell.eventID = events[indexPath.row].makeIDString(id: events[indexPath.row].id)
+
         cell.eventImage.layer.cornerRadius = cell.eventImage.frame.size.height / 5
         
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//
-//    }
    
 }
 

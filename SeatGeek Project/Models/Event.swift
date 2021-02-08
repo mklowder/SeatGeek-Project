@@ -15,7 +15,8 @@ struct Event: Codable {
     let datetime_local:  String
     let datetime_tbd: Bool
     let venue: Venue
-    var isFavorited: Bool?
+    let id: Int
+    var isFavorited: Bool? = false
     
     
     func getImage(from string: String) -> UIImage? {
@@ -36,6 +37,40 @@ struct Event: Codable {
         
         return image
     }
+    
+    func getDate(datetime_local: String) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+        let date = dateFormatter.date(from: datetime_local)!
+
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        newDateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+
+        return newDateFormatter.string(from: date)
+    }
+    
+    func getTime(datetime_local: String) -> String {
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.locale = Locale(identifier: "en_US_POSIX")
+        timeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+        let date = timeFormatter.date(from: datetime_local)!
+
+        let newTimeFormatter = DateFormatter()
+        newTimeFormatter.locale = Locale(identifier: "en_US_POSIX")
+        newTimeFormatter.dateFormat = "h:mm a"
+
+        return newTimeFormatter.string(from: date)
+    }
+    
+    func makeIDString(id: Int) -> String {
+        return String(id)
+    }
 }
 
 struct Performers: Codable {
@@ -49,3 +84,9 @@ struct Venue: Codable {
 struct Events: Codable {
     var events: [Event]
 }
+    
+
+
+
+
+

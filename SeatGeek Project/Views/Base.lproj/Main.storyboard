@@ -267,6 +267,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="eventDateLabel" destination="oDF-Yh-jX0" id="U7y-cP-TED"/>
+                        <outlet property="eventFavoriteIcon" destination="ENA-Ro-wgI" id="9Bw-wV-ahc"/>
                         <outlet property="eventImageView" destination="sKd-WH-4io" id="8dF-gZ-gih"/>
                         <outlet property="eventLocationLabel" destination="5Ow-2e-Lhl" id="P9x-XQ-6OD"/>
                         <outlet property="eventTimeLabel" destination="PJU-uc-QOB" id="Fhn-a1-nV7"/>

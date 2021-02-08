@@ -7,35 +7,33 @@
 
 import XCTest
 @testable import SeatGeek_Project
+var viewController: ViewController!
 
 class SeatGeek_ProjectTests: XCTestCase {
     
 
     override func setUpWithError() throws {
         try super.setUpWithError()
+        viewController = ViewController()
     }
 
     override func tearDownWithError() throws {
-       
+        viewController = nil
         try super.tearDownWithError()
     }
 
-    func testFormingURLFromSearchBar()  {
+    func testIfApiPullIsSuccessfulWithin5Seconds()  {
         // Given
-        
+        let maxTimeForApiPull = 5.0
         
         // When
-        
+        viewController.fetchAllEvents()
         
         // Then
-        
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        DispatchQueue.main.asyncAfter(deadline: .now() + maxTimeForApiPull) {
+            XCTAssertGreaterThan(viewController.events.count, 0, "SeatGeek API call was unsuccessful and did not retrieve any data")
         }
+        
     }
 
 }
@@ -45,17 +43,5 @@ extension XCTestCase {
         case fileNotFound
     }
     
-    func getData(fromJSON fileName: String) throws -> Data {
-        let bundle = Bundle(for:type(of: self))
-        guard let url = bundle.url(forResource: fileName, withExtension: "json") else {
-            XCTFail("Missing File:  \(fileName).json")
-            throw TestError.fileNotFound
-        }
-        do {
-            let data = try Data(contentsOf: url)
-            return data
-        } catch {
-            throw error
-        }
-    }
+
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07930BE125D1907E00EA1FF3 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 07930BE025D1907E00EA1FF3 /* README.rtf */; };
 		07F170FC25CDFC50001C39C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FB25CDFC50001C39C6 /* AppDelegate.swift */; };
 		07F170FE25CDFC50001C39C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FD25CDFC50001C39C6 /* SceneDelegate.swift */; };
 		07F1710025CDFC50001C39C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FF25CDFC50001C39C6 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07930BE025D1907E00EA1FF3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		07F170F825CDFC50001C39C6 /* SeatGeek Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeatGeek Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F170FB25CDFC50001C39C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07F170FD25CDFC50001C39C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		07F170EF25CDFC4F001C39C6 = {
 			isa = PBXGroup;
 			children = (
+				07930BE025D1907E00EA1FF3 /* README.rtf */,
 				07F170FA25CDFC50001C39C6 /* SeatGeek Project */,
 				07F1711125CDFC55001C39C6 /* SeatGeek ProjectTests */,
 				07F1711C25CDFC55001C39C6 /* SeatGeek ProjectUITests */,
@@ -266,6 +269,7 @@
 			files = (
 				07F1710825CDFC55001C39C6 /* LaunchScreen.storyboard in Resources */,
 				07F1710525CDFC55001C39C6 /* Assets.xcassets in Resources */,
+				07930BE125D1907E00EA1FF3 /* README.rtf in Resources */,
 				07F1710325CDFC50001C39C6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

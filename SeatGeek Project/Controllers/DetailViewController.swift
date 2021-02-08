@@ -23,7 +23,6 @@ class DetailViewController: UIViewController {
     var eventLocation: String = ""
     var isFavorited: Bool = false
     var id: String = ""
-    let defaults = UserDefaults.standard
 
     @IBAction func isFavorited(_ sender: UIButton) {
         
@@ -31,13 +30,13 @@ class DetailViewController: UIViewController {
         
         if isFavorited == true {
             sender.setImage(UIImage(named: "smallFavorite"), for: .normal)
-            defaults.set(true, forKey: "\(id)")
+            UserDefaults.standard.set(isFavorited, forKey: "\(id)")
+            print(isFavorited)
         } else {
             sender.setImage(UIImage(named: "smallNotFavorite"), for: .normal)
-            defaults.set(false, forKey: "\(id)")
+            UserDefaults.standard.set(isFavorited, forKey: "\(id)")
+            print(isFavorited)
         }
-        
-        
     }
 
     @IBAction func backButton(_ sender: UIButton) {
@@ -59,6 +58,10 @@ class DetailViewController: UIViewController {
             eventFavoriteIcon?.setImage(UIImage(named: "smallNotFavorite"), for: .normal)
         }
         
+    }
+    
+    override func viewDidLoad() {
+        print(isFavorited)
     }
     
 }

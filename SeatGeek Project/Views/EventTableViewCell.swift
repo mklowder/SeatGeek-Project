@@ -19,7 +19,7 @@ class EventTableViewCell: UITableViewCell {
     @IBOutlet weak var eventTime: UILabel!
     @IBOutlet weak var favoriteIcon: UIImageView!
     var eventID: String = ""
-    
+    var isFavorited: Bool = false
     
     
 }

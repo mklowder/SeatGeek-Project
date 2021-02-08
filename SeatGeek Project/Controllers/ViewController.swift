@@ -22,7 +22,6 @@ class ViewController: UIViewController {
         tableView.estimatedRowHeight = 600
         
         fetchAllEvents()
-        tableView.reloadData()
     }
     
     
@@ -31,6 +30,9 @@ class ViewController: UIViewController {
             self.tableView.deselectRow(at: index, animated: true)
         }
         navigationController?.isNavigationBarHidden = false
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
                 newController.eventDate = senderCell.eventDate.text ?? ""
                 newController.eventTime = senderCell.eventTime.text ?? ""
                 newController.eventLocation = senderCell.eventLocation.text ?? ""
-                if senderCell.favoriteIcon.isHidden == true {
+                if senderCell.isFavorited == false {
                     newController.isFavorited = false
                 } else {
                     newController.isFavorited = true
@@ -116,6 +118,7 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! EventTableViewCell
         
         let isEventFavorited = UserDefaults.standard.bool(forKey: "\(events[indexPath.row].makeIDString(id: events[indexPath.row].id))")
+        print("isEventFavorited = \(isEventFavorited) for [\(indexPath.row)]")
         events[indexPath.row].isFavorited = isEventFavorited
         
         cell.eventTitle.text = events[indexPath.row].title
@@ -123,16 +126,23 @@ extension ViewController: UITableViewDataSource {
         cell.eventLocation.text = events[indexPath.row].venue.display_location
         cell.eventDate.text = events[indexPath.row].getDate(datetime_local: events[indexPath.row].datetime_local)
         cell.eventTime.text = events[indexPath.row].getTime(datetime_local: events[indexPath.row].datetime_local)
-        if events[indexPath.row].isFavorited == false {
+        if isEventFavorited == false {
             cell.favoriteIcon.isHidden = true
+            cell.isFavorited = false
         } else {
             cell.favoriteIcon.image = UIImage(named: "smallFavorite")
+            cell.isFavorited = true
         }
         cell.eventID = events[indexPath.row].makeIDString(id: events[indexPath.row].id)
 
         cell.eventImage.layer.cornerRadius = cell.eventImage.frame.size.height / 5
         
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.reloadData()
     }
    
 }
@@ -143,6 +153,12 @@ extension ViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
+        if let searchInput = searchBar.text {
+            fetchEventsForSearchBar(searchInput: searchInput)
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchInput = searchBar.text {
             fetchEventsForSearchBar(searchInput: searchInput)
         }

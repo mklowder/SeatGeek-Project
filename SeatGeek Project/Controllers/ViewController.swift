@@ -10,13 +10,11 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var selectedEvent = Event(image: UIImage(named: "testImage")!, eventTitle: "", location: "", date: "", time: "", isFavorited: false)
+    @IBOutlet weak var searchBar: UISearchBar!
+
+
     
-    var events: [Event] = [
-        Event(image: UIImage(named: "testImage")!, eventTitle: "Los Angeles Rams at Tampa Bay Buccaneers", location: "Tampa, FL", date: "Tuesday, 24 Nov 2020", time: "01:15 AM", isFavorited: false),
-        Event(image: UIImage(named: "testImage")!, eventTitle: "Atlanta Falcons at New Orleans Saints", location: "New Orleans, LA", date: "Tuesday, 24 Nov 2020", time: "06:00 PM", isFavorited: false),
-        Event(image: UIImage(named: "testImage")!, eventTitle: "New Mexico Lobos at Utah State Aggies Football", location: "Logan, UT", date: "Thursday, 26 Nov 2020", time: "10:30 AM", isFavorited: false)
-    ]
+    var events = [Event]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +23,10 @@ class ViewController: UIViewController {
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 600
-   }
+        
+        fetchAllEvents()
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         if let index = self.tableView.indexPathForSelectedRow {
@@ -39,7 +40,7 @@ class ViewController: UIViewController {
             let senderCell = sender as? EventTableViewCell,
             let newController = segue.destination as? DetailViewController {
                 newController.eventTitle = senderCell.eventTitle.text ?? ""
-            newController.eventImage = senderCell.eventImage.image ?? UIImage(systemName: "camera")!
+                newController.eventImage = senderCell.eventImage.image ?? UIImage(systemName: "camera")!
                 newController.eventDate = senderCell.eventDate.text ?? ""
                 newController.eventTime = senderCell.eventTime.text ?? ""
                 newController.eventLocation = senderCell.eventLocation.text ?? ""
@@ -47,7 +48,51 @@ class ViewController: UIViewController {
             }
         
     }
+   
+//MARK: - Managing API Calls
+
+    let eventsURL = "https://api.seatgeek.com/2/events"
+    let clientID = "client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
+    let fullEventsURL = "https://api.seatgeek.com/2/events?client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
     
+    func fetchEventsForSearchBar(searchInput: String) {
+        let urlString = "\(eventsURL)?q=\(searchInput)&\(clientID)"
+        performRequest(urlString: urlString)
+    }
+    
+    func fetchAllEvents() {
+        let urlString = fullEventsURL
+        performRequest(urlString: urlString)
+    }
+    
+    func performRequest(urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                if let safeData = data  {
+                    self.parse(json: safeData)
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func parse(json: Data) {
+        let decoder = JSONDecoder()
+        
+        if let decodedData = try? decoder.decode(Events.self, from: json) {
+            events = decodedData.events
+            print(events)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
     
 }
 
@@ -68,11 +113,11 @@ extension ViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! EventTableViewCell
         
-        cell.eventTitle.text = events[indexPath.row].eventTitle
-        cell.eventImage.image = events[indexPath.row].image
-        cell.eventLocation.text = events[indexPath.row].location
-        cell.eventDate.text = events[indexPath.row].date
-        cell.eventTime.text = events[indexPath.row].time
+        cell.eventTitle.text = events[indexPath.row].title
+        cell.eventImage.image = events[indexPath.row].getImage(from: events[indexPath.row].performers[0].image)
+        cell.eventLocation.text = events[indexPath.row].venue.display_location
+        cell.eventDate.text = events[indexPath.row].datetime_local
+       // cell.eventTime.text = events[indexPath.row].time
         
         cell.eventImage.layer.cornerRadius = cell.eventImage.frame.size.height / 5
         
@@ -91,8 +136,12 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("the search bar button has been clicked")
-        //query from realm 
+        
+        if let searchInput = searchBar.text {
+            fetchEventsForSearchBar(searchInput: searchInput)
+        }
     }
     
 }
+
+

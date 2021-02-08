@@ -18,7 +18,7 @@ struct Event: Codable {
     let id: Int
     var isFavorited: Bool? = false
     
-    
+    //converts url for image received from JSON to UIImage
     func getImage(from string: String) -> UIImage? {
         
         guard let url = URL(string: string)
@@ -38,6 +38,7 @@ struct Event: Codable {
         return image
     }
     
+    //formats the date from the datetime_local received from the JSON
     func getDate(datetime_local: String) -> String {
         
         let dateFormatter = DateFormatter()
@@ -53,6 +54,7 @@ struct Event: Codable {
         return newDateFormatter.string(from: date)
     }
     
+    //formats the time from the datetime_local recieved from the JSON
     func getTime(datetime_local: String) -> String {
         
         let timeFormatter = DateFormatter()
@@ -68,6 +70,7 @@ struct Event: Codable {
         return newTimeFormatter.string(from: date)
     }
     
+    //converts event ID received from JSON into String data type
     func makeIDString(id: Int) -> String {
         return String(id)
     }

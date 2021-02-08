@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 
 class EventTableViewCell: UITableViewCell {
-    
-    //var event = Event()
+
     
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var eventTitle: UILabel!
@@ -21,5 +20,14 @@ class EventTableViewCell: UITableViewCell {
     var eventID: String = ""
     var isFavorited: Bool = false
     
-    
+    override func prepareForReuse() {
+        
+        let isEventFavorited = UserDefaults.standard.bool(forKey: "\(eventID)")
+        
+        if isEventFavorited == true {
+            favoriteIcon.image = UIImage(named: "smallFavorite")
+        } else {
+            favoriteIcon.isHidden = true
+        }
+    }
 }

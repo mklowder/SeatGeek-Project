@@ -35,12 +35,17 @@ class ViewController: UIViewController {
         }
     }
     
+    //passes over data to DetailView from chosen Event object
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if
             let senderCell = sender as? EventTableViewCell,
             let newController = segue.destination as? DetailViewController {
                 newController.eventTitle = senderCell.eventTitle.text ?? ""
+            if #available(iOS 13.0, *) {
                 newController.eventImage = senderCell.eventImage.image ?? UIImage(systemName: "camera")!
+            } else {
+                newController.eventImage = senderCell.eventImage.image ?? UIImage(named: "camera")!
+            }
                 newController.eventDate = senderCell.eventDate.text ?? ""
                 newController.eventTime = senderCell.eventTime.text ?? ""
                 newController.eventLocation = senderCell.eventLocation.text ?? ""
@@ -60,16 +65,19 @@ class ViewController: UIViewController {
     let clientID = "client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
     let fullEventsURL = "https://api.seatgeek.com/2/events?client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
     
+    //queries the SeatGeek API for the user's search criteria
     func fetchEventsForSearchBar(searchInput: String) {
         let urlString = "\(eventsURL)?q=\(searchInput)&\(clientID)"
         performRequest(urlString: urlString)
     }
     
+    //queries the SeatGeek API only using the assigned clientID
     func fetchAllEvents() {
         let urlString = fullEventsURL
         performRequest(urlString: urlString)
     }
     
+    //starts networking session
     func performRequest(urlString: String) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
@@ -86,6 +94,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //parse data from the JSON
     func parse(json: Data) {
         let decoder = JSONDecoder()
         
@@ -105,7 +114,6 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return events.count
     }
     
@@ -129,9 +137,11 @@ extension ViewController: UITableViewDataSource {
         if isEventFavorited == false {
             cell.favoriteIcon.isHidden = true
             cell.isFavorited = false
+            events[indexPath.row].isFavorited = false
         } else {
             cell.favoriteIcon.image = UIImage(named: "smallFavorite")
             cell.isFavorited = true
+            events[indexPath.row].isFavorited = true
         }
         cell.eventID = events[indexPath.row].makeIDString(id: events[indexPath.row].id)
 
@@ -151,13 +161,16 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UISearchBarDelegate {
     
+    //kicks off query for user's search criteria; dismisses keyboard once search is submitted
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if let searchInput = searchBar.text {
             fetchEventsForSearchBar(searchInput: searchInput)
         }
+        searchBar.resignFirstResponder()
     }
     
+    //searches every time text is changed within the search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchInput = searchBar.text {
             fetchEventsForSearchBar(searchInput: searchInput)

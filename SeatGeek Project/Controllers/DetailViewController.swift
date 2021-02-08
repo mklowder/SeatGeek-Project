@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     var isFavorited: Bool = false
     var id: String = ""
 
+    //changes appearance of the heart icon when tapped, saves the 'favorite' into User Defaults
     @IBAction func isFavorited(_ sender: UIButton) {
         
         isFavorited = !isFavorited
@@ -39,6 +40,7 @@ class DetailViewController: UIViewController {
         }
     }
 
+    //sends the user back to the main view
     @IBAction func backButton(_ sender: UIButton) {
         _ = navigationController?.popViewController(animated: true)
     }

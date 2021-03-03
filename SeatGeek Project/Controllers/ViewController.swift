@@ -21,10 +21,8 @@ class ViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 600
         
-        eventsManager.fetchAllEvents()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        eventsManager.fetchAllEvents(tableView: tableView)
+
         
     }
     
@@ -62,57 +60,7 @@ class ViewController: UIViewController {
                 }
                 newController.id = senderCell.eventID
             }
-        
     }
-   
-//MARK: - Managing API Calls
-
-//    let eventsURL = "https://api.seatgeek.com/2/events"
-//    let clientID = "client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
-//    let fullEventsURL = "https://api.seatgeek.com/2/events?client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
-//
-//    //queries the SeatGeek API for the user's search criteria
-//    func fetchEventsForSearchBar(searchInput: String) {
-//        let urlString = "\(eventsURL)?q=\(searchInput)&\(clientID)"
-//        performRequest(urlString: urlString)
-//    }
-//
-//    //queries the SeatGeek API only using the assigned clientID
-//    func fetchAllEvents() {
-//        let urlString = fullEventsURL
-//        performRequest(urlString: urlString)
-//    }
-//
-//    //starts networking session
-//    func performRequest(urlString: String) {
-//        if let url = URL(string: urlString) {
-//            let session = URLSession(configuration: .default)
-//            let task = session.dataTask(with: url) { (data, response, error) in
-//                if error != nil {
-//                    print(error!)
-//                    return
-//                }
-//                if let safeData = data  {
-//                    self.parse(json: safeData)
-//                }
-//            }
-//            task.resume()
-//        }
-//    }
-    
-    //parse data from the JSON
-//    func parse(json: Data) {
-//        let decoder = JSONDecoder()
-//        
-//        if let decodedData = try? decoder.decode(Events.self, from: json) {
-//            events = decodedData.events
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
-//    }
-
-    
 }
 
 //MARK: - Table View Methods
@@ -173,7 +121,7 @@ extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if let searchInput = searchBar.text {
-            eventsManager.fetchEventsForSearchBar(searchInput: searchInput)
+            eventsManager.fetchEventsForSearchBar(searchInput: searchInput, tableView: tableView)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -184,7 +132,7 @@ extension ViewController: UISearchBarDelegate {
     //searches every time text is changed within the search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchInput = searchBar.text {
-            eventsManager.fetchEventsForSearchBar(searchInput: searchInput)
+            eventsManager.fetchEventsForSearchBar(searchInput: searchInput, tableView: tableView)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

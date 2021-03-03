@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class EventsManager {
     var events = [Event]()
@@ -14,19 +15,19 @@ class EventsManager {
     let fullEventsURL = "https://api.seatgeek.com/2/events?client_id=MjE1MzUxODN8MTYxMjczMjM0NC45NDAyMTY1#"
     
     //queries the SeatGeek API for the user's search criteria
-    func fetchEventsForSearchBar(searchInput: String) {
+    func fetchEventsForSearchBar(searchInput: String, tableView: UITableView) {
         let urlString = "\(eventsURL)?q=\(searchInput)&\(clientID)"
-        performRequest(urlString: urlString)
+        performRequest(urlString: urlString, tableView: tableView)
     }
     
     //queries the SeatGeek API only using the assigned clientID
-    func fetchAllEvents() {
+    func fetchAllEvents(tableView: UITableView) {
         let urlString = fullEventsURL
-        performRequest(urlString: urlString)
+        performRequest(urlString: urlString, tableView: tableView)
     }
     
     //starts networking session
-    func performRequest(urlString: String) {
+    func performRequest(urlString: String, tableView: UITableView) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
@@ -35,7 +36,7 @@ class EventsManager {
                     return
                 }
                 if let safeData = data  {
-                    self.parse(json: safeData)
+                    self.parse(json: safeData, tableView: tableView)
                 }
             }
             task.resume()
@@ -43,11 +44,14 @@ class EventsManager {
     }
     
     //parse data from the JSON
-    func parse(json: Data) {
+    func parse(json: Data, tableView: UITableView) {
         let decoder = JSONDecoder()
         
         if let decodedData = try? decoder.decode(Events.self, from: json) {
             events = decodedData.events
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
         }
     }
 }

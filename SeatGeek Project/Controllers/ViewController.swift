@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var eventsManager = EventsManager()
 
     override func viewDidLoad() {
-        //super.viewDidLoad()
+        super.viewDidLoad()
         
         tableView.dataSource = self
         
@@ -22,12 +22,15 @@ class ViewController: UIViewController {
         tableView.estimatedRowHeight = 600
         
         eventsManager.fetchAllEvents()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        //super.viewWillAppear(true)
+        super.viewWillAppear(true)
         
         if let index = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: index, animated: true)
@@ -171,6 +174,9 @@ extension ViewController: UISearchBarDelegate {
         
         if let searchInput = searchBar.text {
             eventsManager.fetchEventsForSearchBar(searchInput: searchInput)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         searchBar.resignFirstResponder()
     }
@@ -179,6 +185,9 @@ extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchInput = searchBar.text {
             eventsManager.fetchEventsForSearchBar(searchInput: searchInput)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     

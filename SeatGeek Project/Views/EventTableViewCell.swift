@@ -10,7 +10,6 @@ import UIKit
 
 class EventTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var eventTitle: UILabel!
     @IBOutlet weak var eventLocation: UILabel!
@@ -19,8 +18,8 @@ class EventTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteIcon: UIImageView!
     var eventID: String = ""
     var isFavorited: Bool = false
-    var indexPath: IndexPath
-    var eventsManager: EventsManager
+    var indexPath: IndexPath = []
+    var eventsManager: EventsManager?
     
     func update(indexPath: IndexPath, eventsManager: EventsManager) {
         
@@ -53,8 +52,5 @@ class EventTableViewCell: UITableViewCell {
 
         eventImage.layer.cornerRadius = eventImage.frame.size.height / 5
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
 }

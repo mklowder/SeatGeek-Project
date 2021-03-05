@@ -32,7 +32,6 @@ class DetailViewController: UIViewController {
         if isFavorited == true {
             sender.setImage(UIImage(named: "smallFavorite"), for: .normal)
             UserDefaults.standard.set(isFavorited, forKey: "\(id)")
-            print(isFavorited)
         } else {
             sender.setImage(UIImage(named: "smallNotFavorite"), for: .normal)
             UserDefaults.standard.set(isFavorited, forKey: "\(id)")

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		077B476925EEC8A6003E781E /* EventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077B476825EEC8A6003E781E /* EventsManager.swift */; };
 		07930BE925D190F000EA1FF3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 07930BE825D190F000EA1FF3 /* README.md */; };
 		07F170FC25CDFC50001C39C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FB25CDFC50001C39C6 /* AppDelegate.swift */; };
 		07F170FE25CDFC50001C39C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F170FD25CDFC50001C39C6 /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		077B476825EEC8A6003E781E /* EventsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManager.swift; sourceTree = "<group>"; };
 		07930BE825D190F000EA1FF3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		07F170F825CDFC50001C39C6 /* SeatGeek Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeatGeek Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F170FB25CDFC50001C39C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				07F1715025CE0313001C39C6 /* Event.swift */,
+				077B476825EEC8A6003E781E /* EventsManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07F1710025CDFC50001C39C6 /* ViewController.swift in Sources */,
+				077B476925EEC8A6003E781E /* EventsManager.swift in Sources */,
 				07F170FC25CDFC50001C39C6 /* AppDelegate.swift in Sources */,
 				07F170FE25CDFC50001C39C6 /* SceneDelegate.swift in Sources */,
 				07F1715925CE071D001C39C6 /* EventTableViewCell.swift in Sources */,
